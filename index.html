@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator - Light Background</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f4f6f9; /* Light background */
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .calculator {
+      background: rgba(0, 0, 0, 0.95); /* Black calculator */
+      padding: 25px;
+      border-radius: 25px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      width: 340px;
+      animation: fadeIn 1s ease-in-out;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .screen {
+      background: #ffffff; /* White display */
+      color: #111;         /* Dark text */
+      font-size: 1.9rem;
+      font-weight: 700;    /* Bold numbers */
+      padding: 15px;
+      border-radius: 12px;
+      text-align: right;
+      margin-bottom: 20px;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      overflow-x: auto;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    button {
+      font-size: 1.3rem;
+      padding: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+      background: rgba(40, 40, 40, 0.95);
+      color: #f0f0f0;
+    }
+
+    button:hover {
+      transform: scale(1.08);
+      background: rgba(70, 70, 70, 0.95);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .number {
+      background: rgba(60, 60, 60, 0.9);
+    }
+
+    .operator {
+      background: #ff9800;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .equal {
+      background: #27ae60;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 12px rgba(39, 174, 96, 0.9);
+      grid-column: span 2; /* Wide = button */
+    }
+
+    .equal:hover {
+      box-shadow: 0 0 20px rgba(39, 174, 96, 1);
+    }
+
+    .clear {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .backspace {
+      background: #9b59b6;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="screen" id="screen">0</div>
+    <div class="buttons">
+      <button class="clear">C</button>
+      <button class="backspace">⌫</button>
+      <button class="operator">%</button>
+      <button class="operator">÷</button>
+
+      <button class="number">7</button>
+      <button class="number">8</button>
+      <button class="number">9</button>
+      <button class="operator">×</button>
+
+      <button class="number">4</button>
+      <button class="number">5</button>
+      <button class="number">6</button>
+      <button class="operator">-</button>
+
+      <button class="number">1</button>
+      <button class="number">2</button>
+      <button class="number">3</button>
+      <button class="operator">+</button>
+
+      <button class="number">0</button>
+      <button class="number">.</button>
+      <button class="equal">=</button>
+    </div>
+  </div>
+
+  <script>
+    const screen = document.getElementById("screen");
+    const buttons = document.querySelectorAll("button");
+    let currentInput = "";
+    let lastResult = "";
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const value = btn.textContent;
+
+        if (value === "C") {
+          currentInput = "";
+          lastResult = "";
+          screen.textContent = "0";
+        } else if (value === "⌫") {
+          currentInput = currentInput.slice(0, -1);
+          screen.textContent = currentInput || "0";
+        } else if (value === "=") {
+          try {
+            let expression = currentInput.replace(/×/g, "*").replace(/÷/g, "/");
+            lastResult = eval(expression);
+            screen.textContent = currentInput + " = " + lastResult;
+            currentInput = lastResult.toString();
+          } catch {
+            screen.textContent = "Error";
+            currentInput = "";
+          }
+        } else {
+          currentInput += value;
+          screen.textContent = currentInput;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
