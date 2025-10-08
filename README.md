@@ -9,8 +9,8 @@ It performs basic arithmetic operations like addition, subtraction, multiplicati
 - Responsive design for desktop and mobile
 - Lightweight and fast
 
-## Live Demo
-🔗 [Click here to try it](https://sayyedjasmine3-ship-it.github.io/modern-calculator/) *(replace with your GitHub Pages link if you publish it)*
+## 🌐 Live Demo
+🔗 [Click here to try it](https://sayyedjasmine3-ship-it.github.io/modern-calculator/)
 
 ## GitHub Repository
 [modern-calculator](https://github.com/sayyedjasmine3-ship-it/modern-calculator)
